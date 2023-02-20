@@ -13,8 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parqueadero")
-public class CarroController {
-    private final CarroCrudService carroCrudService;
+public class CarroController {    private final CarroCrudService carroCrudService;
     private final ParkingServiceImpl parkingService;
 
     private final ParkingRepositorio parkingRepositorio;
