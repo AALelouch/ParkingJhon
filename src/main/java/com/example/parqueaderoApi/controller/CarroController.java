@@ -2,6 +2,7 @@ package com.example.parqueaderoApi.controller;
 
 import com.example.parqueaderoApi.entity.Carro;
 import com.example.parqueaderoApi.entity.Parking;
+import com.example.parqueaderoApi.exception.ParkingNotFoundException;
 import com.example.parqueaderoApi.repository.ParkingRepositorio;
 import com.example.parqueaderoApi.service.CarroCrudService;
 import com.example.parqueaderoApi.service.ParkingServiceImpl;
@@ -28,14 +29,16 @@ public class CarroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Carro>> getAllCarros(){
+    public ResponseEntity<List<Carro>> getAllCarros(@RequestHeader("Acceso") String token){
+        System.out.println(token);
         return ResponseEntity.ok(carroCrudService.getAllCarros());
     }
 
     @GetMapping("/obtenerParqueaderos")
-    public ResponseEntity<Parking> getAllParkingAvailable(){
+    public ResponseEntity<Parking> getAllParkingAvailable(@RequestHeader("Acceso") String token){
+        System.out.println(token);
         return ResponseEntity.ok(parkingRepositorio.getAllParkingAvailable()
-                .orElseThrow(()->new IllegalArgumentException("No hay parqueaderos disponibles")));
+                .orElseThrow(()->new ParkingNotFoundException("No hay parqueaderos")));
     }
 
     @PostMapping("/parking")
@@ -44,7 +47,8 @@ public class CarroController {
         parkingService.createParking(parking);
     }
     @GetMapping("/carro/{placa}")
-    public ResponseEntity<Carro> getCarroByPlaca(@PathVariable String placa){
+    public ResponseEntity<Carro> getCarroByPlaca(@PathVariable String placa, @RequestHeader("Acceso") String token){
+        System.out.println(token);
         return ResponseEntity.ok(carroCrudService.getCarroByPlaca(placa));
     }
     @GetMapping("/salir")
@@ -60,16 +64,14 @@ public class CarroController {
         carroCrudService.createCarro(carro);
     }
 
-    @PatchMapping
+    @PatchMapping("/update/{placa}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping("/update/{placa}")
     public void updateCarro(@RequestBody Carro carro, @PathVariable String placa){
         carroCrudService.updateCarro(carro, placa);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete/{placa}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping("/delete/{placa}")
     public void deleteCarro(@RequestBody Carro carro, @PathVariable String placa){
         carroCrudService.deleteCarro(placa);
     }
