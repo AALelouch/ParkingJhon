@@ -1,9 +1,15 @@
 package com.example.parqueaderoApi.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,7 +17,4 @@ public class User {
     private String name;
     private String email;
     private String password;
-
-    public User(String name, String email, String password) {
-    }
 }

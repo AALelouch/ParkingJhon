@@ -15,7 +15,7 @@ public class UserRegisterServiceImpl implements UserRegisterService{
 
     @Override
     public User save(UserRegister register) {
-        User user = new User(register.getName(), register.getEmail(), register.getPassword());
+        User user = new User(null, register.getName(), register.getEmail(), register.getPassword());
         return userRepository.save(user);
     }
 }
