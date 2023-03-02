@@ -4,6 +4,8 @@ import com.example.parqueaderoApi.entity.User;
 import com.example.parqueaderoApi.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserRegisterServiceImpl implements UserRegisterService{
 
@@ -14,8 +16,12 @@ public class UserRegisterServiceImpl implements UserRegisterService{
     }
 
     @Override
-    public User save(UserRegister register) {
-        User user = new User(null, register.getName(), register.getEmail(), register.getPassword());
-        return userRepository.save(user);
+    public void save(User user) {
+         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return userRepository.findAll();
     }
 }

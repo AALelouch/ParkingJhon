@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -17,22 +18,25 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-  
-  @Autowired
-  private AuthenticationEntryPoint basicSecurityEntryPoint;
+
   
   @Autowired
   private AuthenticationProvider authProvider;
   
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
-        .requestMatchers("/api/registrar", "/parqueadero/obtenerParqueaderos")
-        .permitAll()
-        .anyRequest()
-        .authenticated()
-        .and()
-        .httpBasic();
+    http.csrf()
+            .disable()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .requestMatchers("/api/registrar", "/parqueadero/obtenerParqueaderos", "/swagger-ui/**","/v3/api-docs/**", "/register/createUser")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+            .and()
+            .httpBasic();
     return http.build();
   }
   

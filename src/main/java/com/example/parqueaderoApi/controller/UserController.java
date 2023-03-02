@@ -1,14 +1,17 @@
 package com.example.parqueaderoApi.controller;
 
+import com.example.parqueaderoApi.entity.Carro;
+import com.example.parqueaderoApi.entity.User;
 import com.example.parqueaderoApi.service.UserRegister;
 import com.example.parqueaderoApi.service.UserRegisterService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/register")
 public class UserController {
     private UserRegisterService userRegisterService;
@@ -17,19 +20,14 @@ public class UserController {
         this.userRegisterService = userRegisterService;
     }
 
-    @ModelAttribute("user")
-    public UserRegister returnNewUser(){
-        return new UserRegister();
-    }
-
     @GetMapping
-    public String showFormRegister(){
-        return "register";
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(userRegisterService.getAllUser());
     }
 
-    @PostMapping
-    public String registerAccountNewUser(@ModelAttribute("user") UserRegister userRegister){
-        userRegisterService.save(userRegister);
-        return "redirect:/register?complete";
+    @PostMapping("/createUser")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerAccountNewUser(@RequestBody User user){
+        userRegisterService.save(user);
     }
 }

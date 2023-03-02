@@ -2,7 +2,6 @@ package com.example.parqueaderoApi.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jdk.jfr.Name;
 import lombok.Data;
 
 import java.time.LocalDateTime;

@@ -2,6 +2,9 @@ package com.example.parqueaderoApi.service;
 
 import com.example.parqueaderoApi.entity.User;
 
+import java.util.List;
+
 public interface UserRegisterService {
-    public User save(UserRegister register);
+     void save(User user);
+     List<User> getAllUser();
 }
