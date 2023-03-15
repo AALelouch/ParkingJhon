@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -42,15 +43,22 @@ public class SecurityConfig {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .authorizeRequests()
-            .requestMatchers("/api/registrar", "/parqueadero/obtenerParqueaderos", "/swagger-ui/**","/v3/api-docs/**", "/register/**")
-            .permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
+        
+            .authorizeHttpRequests(
+                authorizationManagerRequestMatcherRegistry ->
+                    authorizationManagerRequestMatcherRegistry
+                        .requestMatchers(HttpMethod.POST, "/register/**")
+                        .permitAll()
+                        .requestMatchers("/swagger-ui/**","/v3/api-docs/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
+            )
+        
             .addFilter(jwtAuthenticationFilter)
             .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
             .httpBasic();
+    
     return http.build();
   }
   
