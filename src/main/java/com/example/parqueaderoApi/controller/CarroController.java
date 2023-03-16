@@ -3,9 +3,12 @@ package com.example.parqueaderoApi.controller;
 import com.example.parqueaderoApi.entity.Carro;
 import com.example.parqueaderoApi.entity.Parking;
 import com.example.parqueaderoApi.exception.ParkingNotFoundException;
+import com.example.parqueaderoApi.model.ParkingRequest;
+import com.example.parqueaderoApi.model.ParkingResponse;
 import com.example.parqueaderoApi.repository.ParkingRepositorio;
 import com.example.parqueaderoApi.service.CarroCrudService;
 import com.example.parqueaderoApi.service.ParkingServiceImpl;
+import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +39,22 @@ public class CarroController {    private final CarroCrudService carroCrudServic
     @GetMapping("/obtenerParqueaderos")
     public ResponseEntity<Parking> getAllParkingAvailable(@RequestHeader("Acceso") String token){
         System.out.println(token);
+        
+        //map to other class
+        List<ParkingResponse> list = parkingRepositorio.findAll().stream()
+                                         .map(parking ->
+                                                  ParkingResponse.builder()
+                                                      .id(parking.getId())
+                                                      .status(parking.getEstado())
+                                                      .build()).toList();
+        
         return ResponseEntity.ok(parkingRepositorio.getAllParkingAvailable()
                 .orElseThrow(()->new ParkingNotFoundException("No hay parqueaderos")));
     }
 
     @PostMapping("/parking")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveParking(@RequestBody Parking parking){
+    public void saveParking(@RequestBody ParkingRequest parking){
         parkingService.createParking(parking);
     }
     @GetMapping("/carro/{placa}")

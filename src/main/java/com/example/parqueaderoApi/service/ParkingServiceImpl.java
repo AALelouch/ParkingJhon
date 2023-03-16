@@ -2,6 +2,8 @@ package com.example.parqueaderoApi.service;
 
 import com.example.parqueaderoApi.entity.Carro;
 import com.example.parqueaderoApi.entity.Parking;
+import com.example.parqueaderoApi.model.ParkingRequest;
+import com.example.parqueaderoApi.model.ParkingResponse;
 import com.example.parqueaderoApi.repository.CarroRepositorio;
 import com.example.parqueaderoApi.repository.ParkingRepositorio;
 import com.example.parqueaderoApi.service.util.PrecioPorDia;
@@ -23,13 +25,15 @@ public class ParkingServiceImpl implements ParkingService{
     }
 
     @Override
-    public List<Parking> getParkingPorDisponibilidad(Boolean estado) {
+    public List<ParkingResponse> getParkingPorDisponibilidad(Boolean estado) {
         return null;
     }
 
     @Override
-    public void createParking(Parking parking) {
-        parkingRepositorio.save(parking);
+    public void createParking(ParkingRequest parkingRequest) {
+        
+        parkingRepositorio
+            .save(Parking.builder().estado(parkingRequest.getStatus()).build());
     }
 
     @Override
