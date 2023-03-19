@@ -2,6 +2,7 @@ package com.example.parqueaderoApi.controller;
 
 import com.example.parqueaderoApi.entity.Carro;
 import com.example.parqueaderoApi.entity.User;
+import com.example.parqueaderoApi.model.UserRequest;
 import com.example.parqueaderoApi.service.UserRegister;
 import com.example.parqueaderoApi.service.UserRegisterService;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/user")
 public class UserController {
     private UserRegisterService userRegisterService;
 
@@ -27,7 +28,7 @@ public class UserController {
 
     @PostMapping("/createUser")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccountNewUser(@RequestBody User user){
+    public void registerAccountNewUser(@RequestBody UserRequest user){
         userRegisterService.save(user);
     }
 }

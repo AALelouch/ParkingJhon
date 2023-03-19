@@ -1,14 +1,9 @@
 package com.example.parqueaderoApi.controller;
 
 import com.example.parqueaderoApi.entity.Carro;
-import com.example.parqueaderoApi.entity.Parking;
-import com.example.parqueaderoApi.exception.ParkingNotFoundException;
-import com.example.parqueaderoApi.model.ParkingRequest;
-import com.example.parqueaderoApi.model.ParkingResponse;
-import com.example.parqueaderoApi.repository.ParkingRepositorio;
+import com.example.parqueaderoApi.model.CarRequest;
 import com.example.parqueaderoApi.service.CarroCrudService;
-import com.example.parqueaderoApi.service.ParkingServiceImpl;
-import java.util.stream.Collectors;
+import com.example.parqueaderoApi.service.CarroCrudServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,62 +11,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/parqueadero")
-public class CarroController {    private final CarroCrudService carroCrudService;
-    private final ParkingServiceImpl parkingService;
+@RequestMapping("/car")
+public class CarroController {
+    private final CarroCrudServiceImpl carroCrudService;
 
-    private final ParkingRepositorio parkingRepositorio;
-
-    public CarroController(CarroCrudService carroCrudService, ParkingServiceImpl parkingService, ParkingRepositorio parkingRepositorio) {
+    public CarroController(CarroCrudServiceImpl carroCrudService) {
         this.carroCrudService = carroCrudService;
-
-        this.parkingService = parkingService;
-
-        this.parkingRepositorio = parkingRepositorio;
     }
 
     @GetMapping
-    public ResponseEntity<List<Carro>> getAllCarros(@RequestHeader("Acceso") String token){
-        System.out.println(token);
+    public ResponseEntity<List<Carro>> getAllCarros(){
         return ResponseEntity.ok(carroCrudService.getAllCarros());
     }
 
-    @GetMapping("/obtenerParqueaderos")
-    public ResponseEntity<Parking> getAllParkingAvailable(@RequestHeader("Acceso") String token){
-        System.out.println(token);
-        
-        //map to other class
-        List<ParkingResponse> list = parkingRepositorio.findAll().stream()
-                                         .map(parking ->
-                                                  ParkingResponse.builder()
-                                                      .id(parking.getId())
-                                                      .status(parking.getEstado())
-                                                      .build()).toList();
-        
-        return ResponseEntity.ok(parkingRepositorio.getAllParkingAvailable()
-                .orElseThrow(()->new ParkingNotFoundException("No hay parqueaderos")));
-    }
-
-    @PostMapping("/parking")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void saveParking(@RequestBody ParkingRequest parking){
-        parkingService.createParking(parking);
-    }
     @GetMapping("/carro/{placa}")
-    public ResponseEntity<Carro> getCarroByPlaca(@PathVariable String placa, @RequestHeader("Acceso") String token){
-        System.out.println(token);
+    public ResponseEntity<Carro> getCarroByPlaca(@PathVariable String placa){
         return ResponseEntity.ok(carroCrudService.getCarroByPlaca(placa));
     }
-    @GetMapping("/salir")
-    public void exitCarro(){
-         parkingService.exitParking();
-    }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveCarro(@RequestBody Carro carro){
-
+    public void saveCarro(@RequestBody CarRequest carro){
         carroCrudService.createCarro(carro);
     }
 

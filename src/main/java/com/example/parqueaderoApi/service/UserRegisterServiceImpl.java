@@ -1,6 +1,7 @@
 package com.example.parqueaderoApi.service;
 
 import com.example.parqueaderoApi.entity.User;
+import com.example.parqueaderoApi.model.UserRequest;
 import com.example.parqueaderoApi.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,9 @@ public class UserRegisterServiceImpl implements UserRegisterService{
     }
 
     @Override
-    public void save(User user) {
-         userRepository.save(user);
+    public void save(UserRequest userRequest) {
+        userRepository.save(User.builder().name(userRequest.getName())
+                .email(userRequest.getEmail()).password(userRequest.getPassword()).build());
     }
 
     @Override

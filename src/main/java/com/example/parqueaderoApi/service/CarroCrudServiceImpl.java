@@ -3,6 +3,7 @@ package com.example.parqueaderoApi.service;
 import com.example.parqueaderoApi.entity.Carro;
 import com.example.parqueaderoApi.entity.Parking;
 import com.example.parqueaderoApi.exception.CarroNotFoundException;
+import com.example.parqueaderoApi.model.CarRequest;
 import com.example.parqueaderoApi.repository.CarroRepositorio;
 import com.example.parqueaderoApi.repository.ParkingRepositorio;
 import com.example.parqueaderoApi.service.util.PrecioPorDia;
@@ -23,13 +24,14 @@ public class CarroCrudServiceImpl implements CarroCrudService{
     }
 
     @Override
-    public void createCarro(Carro carro) {
-        carro.setFechaDeEntrada(LocalDateTime.now());
-        Parking parking = parkingRepositorio.getAllParkingAvailable().orElseThrow(()->new IllegalArgumentException("No se han encontrado parqueaderos"));
-        parking.setEstado(false);
-        carro.setParqueadero(parking);
-        parkingRepositorio.save(parking);
-        carroRepositorio.save(carro);
+    public void createCarro(CarRequest carRequest) {
+        System.out.println("llego a create carro1");
+        Parking parking = parkingRepositorio.getFirstParkingAvailable().orElseThrow(()->new IllegalArgumentException("No se han encontrado parqueaderos"));
+        System.out.println("llego a create carro2");
+        //parking.setEstado(false);
+        //parkingRepositorio.save(parking);
+        carroRepositorio.save(Carro.builder().placa(carRequest.getPlaca()).modelo(carRequest.getModelo()).marca(carRequest.getMarca())
+                .fechaDeEntrada(LocalDateTime.now()).build());
     }
 
     @Override

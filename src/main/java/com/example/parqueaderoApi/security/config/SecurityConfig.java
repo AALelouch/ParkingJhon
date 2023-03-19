@@ -47,7 +47,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                 authorizationManagerRequestMatcherRegistry ->
                     authorizationManagerRequestMatcherRegistry
-                        .requestMatchers(HttpMethod.POST, "/register/**")
+                        .requestMatchers(HttpMethod.POST,  "/user/createUser")
                         .permitAll()
                         .requestMatchers("/swagger-ui/**","/v3/api-docs/**")
                         .permitAll()

@@ -11,6 +11,9 @@ public interface ParkingRepositorio extends JpaRepository<Parking, Long>{
     @Query("Select parking from Parking parking where parking.estado = 1 order by parking.id")
     Optional<Parking> getAllParkingAvailable();
 
+    @Query("Select parking from Parking parking where parking.estado = 1 order by parking.id limit 1")
+    Optional<Parking> getFirstParkingAvailable();
+
     @Query("select parking from Parking parking where parking.estado = 0 order by parking.id limit 1")
     Optional<Parking> exitParking();
 }

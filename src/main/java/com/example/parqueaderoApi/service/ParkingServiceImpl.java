@@ -31,7 +31,6 @@ public class ParkingServiceImpl implements ParkingService{
 
     @Override
     public void createParking(ParkingRequest parkingRequest) {
-        
         parkingRepositorio
             .save(Parking.builder().estado(parkingRequest.getStatus()).build());
     }
