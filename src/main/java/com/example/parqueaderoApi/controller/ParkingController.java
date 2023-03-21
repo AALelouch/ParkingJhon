@@ -23,7 +23,7 @@ public class ParkingController {
         this.parkingService = parkingService;
     }
     @GetMapping("/getParking")
-    public ResponseEntity<Parking> getAllParkingAvailable(){
+    public ResponseEntity<List<Parking>> getAllParkingAvailable(){
         List<ParkingResponse> list = parkingRepositorio.findAll().stream()
                 .map(parking ->
                         ParkingResponse.builder()
@@ -31,8 +31,7 @@ public class ParkingController {
                                 .status(parking.getEstado())
                                 .build()).toList();
 
-        return ResponseEntity.ok(parkingRepositorio.getAllParkingAvailable()
-                .orElseThrow(()->new ParkingNotFoundException("No hay parqueaderos")));
+        return ResponseEntity.ok(parkingRepositorio.getAllParkingAvailable());
     }
 
     @PostMapping("/create")

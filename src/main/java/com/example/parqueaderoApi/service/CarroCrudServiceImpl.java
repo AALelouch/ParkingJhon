@@ -25,13 +25,11 @@ public class CarroCrudServiceImpl implements CarroCrudService{
 
     @Override
     public void createCarro(CarRequest carRequest) {
-        System.out.println("llego a create carro1");
         Parking parking = parkingRepositorio.getFirstParkingAvailable().orElseThrow(()->new IllegalArgumentException("No se han encontrado parqueaderos"));
-        System.out.println("llego a create carro2");
-        //parking.setEstado(false);
-        //parkingRepositorio.save(parking);
+        parking.setEstado(false);
+        parkingRepositorio.save(parking);
         carroRepositorio.save(Carro.builder().placa(carRequest.getPlaca()).modelo(carRequest.getModelo()).marca(carRequest.getMarca())
-                .fechaDeEntrada(LocalDateTime.now()).build());
+                .fechaDeEntrada(LocalDateTime.now()).parqueadero(parking).build());
     }
 
     @Override
