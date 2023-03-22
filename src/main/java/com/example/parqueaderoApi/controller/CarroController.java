@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/car")
-@SecurityRequirement(name ="beareraAuth")
+@SecurityRequirement(name ="bearerAuth")
 public class CarroController {
     private final CarroCrudServiceImpl carroCrudService;
     private final CarroRepositorio carroRepositorio;

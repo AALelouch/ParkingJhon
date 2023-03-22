@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
-@SecurityRequirement(name ="beareraAuth")
+@SecurityRequirement(name ="bearerAuth")
 public class ParkingController {
     private final ParkingRepositorio parkingRepositorio;
     private final ParkingServiceImpl parkingService;

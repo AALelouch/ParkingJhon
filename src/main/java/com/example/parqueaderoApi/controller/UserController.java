@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@SecurityRequirement(name ="beareraAuth")
+@SecurityRequirement(name ="bearerAuth")
 public class UserController {
     private UserRegisterService userRegisterService;
     private final UserRepository userRepository;

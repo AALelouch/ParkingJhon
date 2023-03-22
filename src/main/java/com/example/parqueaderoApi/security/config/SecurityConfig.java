@@ -49,7 +49,7 @@ public class SecurityConfig {
                     authorizationManagerRequestMatcherRegistry
                         .requestMatchers(HttpMethod.POST,  "/user/createUser")
                         .permitAll()
-                        .requestMatchers("/swagger-ui/**","/v3/api-docs/**")
+                        .requestMatchers("/open-api/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
