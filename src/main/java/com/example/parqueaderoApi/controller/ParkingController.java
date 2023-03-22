@@ -6,6 +6,7 @@ import com.example.parqueaderoApi.model.ParkingRequest;
 import com.example.parqueaderoApi.model.ParkingResponse;
 import com.example.parqueaderoApi.repository.ParkingRepositorio;
 import com.example.parqueaderoApi.service.ParkingServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
+@SecurityRequirement(name ="beareraAuth")
 public class ParkingController {
     private final ParkingRepositorio parkingRepositorio;
     private final ParkingServiceImpl parkingService;
