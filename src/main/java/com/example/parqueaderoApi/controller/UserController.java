@@ -1,6 +1,6 @@
 package com.example.parqueaderoApi.controller;
 
-import com.example.parqueaderoApi.entity.User;
+
 import com.example.parqueaderoApi.model.UserRequest;
 import com.example.parqueaderoApi.model.UserResponse;
 import com.example.parqueaderoApi.repository.UserRepository;
@@ -25,15 +25,8 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public ResponseEntity<List<User>> getAllUsers(){
-        List<UserResponse> list = userRepository.findAll().stream()
-                .map(user ->
-                        UserResponse.builder()
-                                .id(user.getId()).name(user.getName())
-                                .email(user.getEmail()).password(user.getPassword())
-                                .build()).toList();
-
-        return ResponseEntity.ok(userRegisterService.getAllUser());
+    public List<UserResponse> getAllUsers(){
+        return userRegisterService.getAllUsers();
     }
 
     @PostMapping("/createUser")

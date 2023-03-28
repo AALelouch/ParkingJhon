@@ -8,8 +8,8 @@ import com.example.parqueaderoApi.model.ParkingResponse;
 import java.util.List;
 
 public interface ParkingService {
-    List<ParkingResponse>getParkingPorDisponibilidad(Boolean estado);
     void createParking(ParkingRequest parking);
     void exitParking();
+    List<ParkingResponse> getAllParkingAvailable();
 
 }

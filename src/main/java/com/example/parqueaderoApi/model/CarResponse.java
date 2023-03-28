@@ -16,5 +16,5 @@ public class CarResponse {
     private LocalDateTime fechaDeSalida;
     private int horas;
     private int horasAPagar;
-    private Parking parqueadero;
+    private Long parqueadero;
 }

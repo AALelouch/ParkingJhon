@@ -2,6 +2,7 @@ package com.example.parqueaderoApi.service;
 
 import com.example.parqueaderoApi.entity.User;
 import com.example.parqueaderoApi.model.UserRequest;
+import com.example.parqueaderoApi.model.UserResponse;
 import com.example.parqueaderoApi.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,13 @@ public class UserRegisterServiceImpl implements UserRegisterService{
     }
 
     @Override
-    public List<User> getAllUser() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        List<UserResponse> list = userRepository.findAll().stream()
+                .map(user ->
+                        UserResponse.builder()
+                                .id(user.getId()).name(user.getName())
+                                .email(user.getEmail()).password(user.getPassword())
+                                .build()).toList();
+        return list;
     }
 }

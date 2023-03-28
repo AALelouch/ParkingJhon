@@ -25,11 +25,6 @@ public class ParkingServiceImpl implements ParkingService{
     }
 
     @Override
-    public List<ParkingResponse> getParkingPorDisponibilidad(Boolean estado) {
-        return null;
-    }
-
-    @Override
     public void createParking(ParkingRequest parkingRequest) {
         parkingRepositorio
             .save(Parking.builder().estado(parkingRequest.getStatus()).build());
@@ -57,6 +52,18 @@ public class ParkingServiceImpl implements ParkingService{
                     .obtenerPrecioPorHora(carro));
         }
         carroRepositorio.save(carro);
+    }
+
+    @Override
+    public List<ParkingResponse> getAllParkingAvailable() {
+        List<ParkingResponse> list = parkingRepositorio.findAll().stream()
+                .map(parking ->
+                        ParkingResponse.builder()
+                                .id(parking.getId())
+                                .status(parking.getEstado())
+                                .build()).toList();
+
+        return list;
     }
 
 }

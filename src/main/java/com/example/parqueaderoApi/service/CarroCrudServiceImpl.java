@@ -4,10 +4,10 @@ import com.example.parqueaderoApi.entity.Carro;
 import com.example.parqueaderoApi.entity.Parking;
 import com.example.parqueaderoApi.exception.CarroNotFoundException;
 import com.example.parqueaderoApi.model.CarRequest;
+import com.example.parqueaderoApi.model.CarResponse;
 import com.example.parqueaderoApi.repository.CarroRepositorio;
 import com.example.parqueaderoApi.repository.ParkingRepositorio;
-import com.example.parqueaderoApi.service.util.PrecioPorDia;
-import com.example.parqueaderoApi.service.util.PrecioPorHora;
+
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -33,9 +33,10 @@ public class CarroCrudServiceImpl implements CarroCrudService{
     }
 
     @Override
-    public void updateCarro(Carro carro, String placa) {
-        carro.setPlaca(placa);
-        carroRepositorio.save(carro);
+    public void updateCarro(CarRequest carRequest, String placa) {
+        carRequest.setPlaca(placa);
+        carroRepositorio.save(Carro.builder().placa(carRequest.getPlaca()).modelo(carRequest.getModelo()).marca(carRequest.getMarca())
+                .fechaDeEntrada(LocalDateTime.now()).build());
     }
 
     @Override
@@ -50,7 +51,23 @@ public class CarroCrudServiceImpl implements CarroCrudService{
     }
 
     @Override
-    public List<Carro> getAllCarros() {
-        return carroRepositorio.findAll();
+    public CarResponse setCarById(String placa) {
+        Carro carro = getCarroByPlaca(placa);
+        return CarResponse.builder().placa(carro.getPlaca()).marca(carro.getMarca()).modelo(carro.getModelo())
+                .fechaDeEntrada(carro.getFechaDeEntrada()).fechaDeSalida(carro.getFechaDeSalida())
+                .horas(carro.getHoras()).parqueadero(carro.getParqueadero().getId())
+                .build();
+    }
+
+    @Override
+    public List<CarResponse> getAllCarros() {
+        List<CarResponse> list = carroRepositorio.findAll().stream()
+                .map(carro ->
+                        CarResponse.builder()
+                                .placa(carro.getPlaca()).marca(carro.getMarca()).modelo(carro.getModelo())
+                                .fechaDeEntrada(carro.getFechaDeEntrada()).fechaDeSalida(carro.getFechaDeSalida())
+                                .horas(carro.getHoras()).parqueadero(carro.getParqueadero().getId())
+                                .build()).toList();
+        return list;
     }
 }

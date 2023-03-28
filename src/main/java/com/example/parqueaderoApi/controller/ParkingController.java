@@ -25,15 +25,8 @@ public class ParkingController {
         this.parkingService = parkingService;
     }
     @GetMapping("/getParking")
-    public ResponseEntity<List<Parking>> getAllParkingAvailable(){
-        List<ParkingResponse> list = parkingRepositorio.findAll().stream()
-                .map(parking ->
-                        ParkingResponse.builder()
-                                .id(parking.getId())
-                                .status(parking.getEstado())
-                                .build()).toList();
-
-        return ResponseEntity.ok(parkingRepositorio.getAllParkingAvailable());
+    public List<ParkingResponse> getAllParkingAvailable(){
+        return parkingService.getAllParkingAvailable();
     }
 
     @PostMapping("/create")
