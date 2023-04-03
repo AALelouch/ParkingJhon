@@ -1,6 +1,5 @@
 package com.example.parqueaderoApi.model;
 
-import com.example.parqueaderoApi.entity.Parking;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,11 +1,9 @@
 package com.example.parqueaderoApi.controller;
 
-import com.example.parqueaderoApi.entity.Carro;
 import com.example.parqueaderoApi.model.CarRequest;
 import com.example.parqueaderoApi.model.CarResponse;
 import com.example.parqueaderoApi.repository.CarroRepositorio;
-import com.example.parqueaderoApi.repository.ParkingRepositorio;
-import com.example.parqueaderoApi.service.CarroCrudServiceImpl;
+import com.example.parqueaderoApi.service.CarCrudServiceImpl;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/car")
 @SecurityRequirement(name ="bearerAuth")
-public class CarroController {
-    private final CarroCrudServiceImpl carroCrudService;
+public class CarController {
+    private final CarCrudServiceImpl carroCrudService;
     private final CarroRepositorio carroRepositorio;
 
 
-    public CarroController(CarroCrudServiceImpl carroCrudService, CarroRepositorio carroRepositorio) {
+    public CarController(CarCrudServiceImpl carroCrudService, CarroRepositorio carroRepositorio) {
         this.carroCrudService = carroCrudService;
         this.carroRepositorio = carroRepositorio;
     }
@@ -32,7 +30,7 @@ public class CarroController {
 
     @GetMapping("/carro/{placa}")
     public CarResponse getCarroByPlaca(@PathVariable String placa){
-        return carroCrudService.setCarById(placa);
+        return carroCrudService.getCarById(placa);
     }
 
     @PostMapping

@@ -1,6 +1,5 @@
 package com.example.parqueaderoApi.exception.advice;
 
-import com.example.parqueaderoApi.exception.CarroNotFoundException;
 import com.example.parqueaderoApi.exception.ParkingNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,6 +1,6 @@
 package com.example.parqueaderoApi.controller;
 
-import com.example.parqueaderoApi.entity.Carro;
+import com.example.parqueaderoApi.entity.Car;
 import com.example.parqueaderoApi.entity.Parking;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public interface CarroControllerInterface {
+public interface CarControllerInterface {
     @Operation(summary = "Obtener todos los carros")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description ="Se obtuvieron los carros",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Carro.class)) }),
+                            schema = @Schema(implementation = Car.class)) }),
             @ApiResponse(responseCode = "404", description = "No existen carros",
                     content = @Content) })
     @GetMapping
-    public ResponseEntity<List<Carro>> getAllCarros();
+    public ResponseEntity<List<Car>> getAllCarros();
 
     @Operation(summary = "Obtener el sitio de parqueo disponible")
     @ApiResponses(value = {
@@ -57,7 +57,7 @@ public interface CarroControllerInterface {
             @ApiResponse(responseCode = "404", description = "No se encontro el carro",
                     content = @Content) })
     @GetMapping("/carro/{placa}")
-    public ResponseEntity<Carro> getCarroByPlaca(@Parameter(description = "Placa del carro")@PathVariable String placa);
+    public ResponseEntity<Car> getCarroByPlaca(@Parameter(description = "Placa del carro")@PathVariable String placa);
 
     @Operation(summary = "Salir del parqueadero")
     @ApiResponses(value = {
@@ -82,7 +82,7 @@ public interface CarroControllerInterface {
                     content = @Content) })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveCarro(@Parameter(description = "Carro a guardar")  @RequestBody Carro carro);
+    public void saveCarro(@Parameter(description = "Carro a guardar")  @RequestBody Car car);
 
     @Operation(summary = "Actualizar datos de un carro")
     @ApiResponses(value = {
@@ -95,7 +95,7 @@ public interface CarroControllerInterface {
                     content = @Content) })
     @PatchMapping("/update/{placa}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCarro(@Parameter(description = "Placa del carro a actualizar")  @RequestBody Carro carro, @PathVariable String placa);
+    public void updateCarro(@Parameter(description = "Placa del carro a actualizar")  @RequestBody Car car, @PathVariable String placa);
 
     @Operation(summary = "Eliminar un carro")
     @ApiResponses(value = {
@@ -108,5 +108,5 @@ public interface CarroControllerInterface {
                     content = @Content) })
     @DeleteMapping("/delete/{placa}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCarro(@Parameter(description = "Placa del carro a eliminar")  @RequestBody Carro carro, @PathVariable String placa);
+    public void deleteCarro(@Parameter(description = "Placa del carro a eliminar")  @RequestBody Car car, @PathVariable String placa);
 }

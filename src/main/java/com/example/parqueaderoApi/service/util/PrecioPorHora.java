@@ -1,16 +1,16 @@
 package com.example.parqueaderoApi.service.util;
 
-import com.example.parqueaderoApi.entity.Carro;
+import com.example.parqueaderoApi.entity.Car;
 
 public class PrecioPorHora {
-    public static int obtenerPrecioPorHora(Carro carro){
+    public static int obtenerPrecioPorHora(Car car){
         int precioPorHora = 2000;
         int pago;
-        if(carro.getHoras()<=2){
-            pago = precioPorHora*carro
+        if(car.getHoras()<=2){
+            pago = precioPorHora* car
                     .getHoras();
         }else{
-            pago = precioPorHora*(carro
+            pago = precioPorHora*(car
                     .getHoras()-2
             );
         }

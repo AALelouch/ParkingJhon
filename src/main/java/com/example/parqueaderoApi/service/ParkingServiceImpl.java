@@ -1,6 +1,6 @@
 package com.example.parqueaderoApi.service;
 
-import com.example.parqueaderoApi.entity.Carro;
+import com.example.parqueaderoApi.entity.Car;
 import com.example.parqueaderoApi.entity.Parking;
 import com.example.parqueaderoApi.model.ParkingRequest;
 import com.example.parqueaderoApi.model.ParkingResponse;
@@ -33,25 +33,25 @@ public class ParkingServiceImpl implements ParkingService{
     @Override
     public void exitParking() {
         Parking parking = parkingRepositorio.exitParking().orElseThrow(()->new IllegalArgumentException("No hay ningun parking ocupado"));
-        Carro carro = carroRepositorio.exitCarro().orElseThrow(()->new IllegalArgumentException("No hay ningun carro en el parqueadero"));
+        Car car = carroRepositorio.exitCarro().orElseThrow(()->new IllegalArgumentException("No hay ningun carro en el parqueadero"));
 
         parking.setEstado(true);
         parkingRepositorio.save(parking);
 
-        carro.setFechaDeSalida(LocalDateTime.now());
-        Duration duration = Duration.between(carro.getFechaDeEntrada(), carro.getFechaDeSalida());
+        car.setFechaDeSalida(LocalDateTime.now());
+        Duration duration = Duration.between(car.getFechaDeEntrada(), car.getFechaDeSalida());
 
-        carro.setHoras((int) Math.ceil(duration
+        car.setHoras((int) Math.ceil(duration
                 .toHours())+1);
 
-        if(carro.getHoras()>=24){
-            carro.setHorasAPagar(PrecioPorDia
-                    .obtenerPrecioPorDia(carro));
+        if(car.getHoras()>=24){
+            car.setHorasAPagar(PrecioPorDia
+                    .obtenerPrecioPorDia(car));
         }else{
-            carro.setHorasAPagar(PrecioPorHora
-                    .obtenerPrecioPorHora(carro));
+            car.setHorasAPagar(PrecioPorHora
+                    .obtenerPrecioPorHora(car));
         }
-        carroRepositorio.save(carro);
+        carroRepositorio.save(car);
     }
 
     @Override

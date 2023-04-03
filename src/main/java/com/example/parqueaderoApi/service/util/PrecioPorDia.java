@@ -1,18 +1,18 @@
 package com.example.parqueaderoApi.service.util;
 
-import com.example.parqueaderoApi.entity.Carro;
+import com.example.parqueaderoApi.entity.Car;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class PrecioPorDia {
-    public static int obtenerPrecioPorDia(Carro carro){
+    public static int obtenerPrecioPorDia(Car car){
 
         int valorDia = 44000;
         int valorAPagar;
 
-        LocalDateTime fechaEntrada = carro.getFechaDeEntrada();
-        LocalDateTime fechaSalida = carro.getFechaDeSalida();
+        LocalDateTime fechaEntrada = car.getFechaDeEntrada();
+        LocalDateTime fechaSalida = car.getFechaDeSalida();
         Duration duration = Duration.between(fechaEntrada, fechaSalida);
         int dias = (int) (duration.toDays());
 
