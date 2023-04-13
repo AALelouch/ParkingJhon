@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/car")
 @SecurityRequirement(name ="bearerAuth")
-public class CarController {
+public class CarController implements CarControllerInterface{
     private final CarCrudServiceImpl carroCrudService;
     private final CarroRepositorio carroRepositorio;
 

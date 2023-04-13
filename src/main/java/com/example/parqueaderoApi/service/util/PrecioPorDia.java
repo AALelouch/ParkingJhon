@@ -11,8 +11,8 @@ public class PrecioPorDia {
         int valorDia = 44000;
         int valorAPagar;
 
-        LocalDateTime fechaEntrada = car.getFechaDeEntrada();
-        LocalDateTime fechaSalida = car.getFechaDeSalida();
+        LocalDateTime fechaEntrada = car.getEntryDate();
+        LocalDateTime fechaSalida = car.getDepartureDate();
         Duration duration = Duration.between(fechaEntrada, fechaSalida);
         int dias = (int) (duration.toDays());
 

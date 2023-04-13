@@ -3,6 +3,7 @@ package com.example.parqueaderoApi.service;
 import com.example.parqueaderoApi.entity.Car;
 import com.example.parqueaderoApi.entity.Parking;
 import com.example.parqueaderoApi.exception.CarNotFoundException;
+import com.example.parqueaderoApi.exception.ParkingNotFoundException;
 import com.example.parqueaderoApi.model.CarRequest;
 import com.example.parqueaderoApi.model.CarResponse;
 import com.example.parqueaderoApi.repository.CarroRepositorio;
@@ -24,32 +25,32 @@ public class CarCrudServiceImpl implements CarCrudService {
 
     @Override
     public void createCarro(CarRequest carRequest) {
-        Parking parking = parkingRepositorio.getFirstParkingAvailable().orElseThrow(()->new IllegalArgumentException("No se han encontrado parqueaderos"));
+        Parking parking = parkingRepositorio.getFirstParkingAvailable().orElseThrow(()->new ParkingNotFoundException("Parking not found"));
         parking.setEstado(false);
         parkingRepositorio.save(parking);
-        carroRepositorio.save(Car.builder().placa(carRequest.getPlaca()).modelo(carRequest.getModelo()).marca(carRequest.getMarca())
-                .fechaDeEntrada(LocalDateTime.now()).parqueadero(parking).build());
+        carroRepositorio.save(Car.builder().id(carRequest.getId()).model(carRequest.getModel()).brand(carRequest.getBrand())
+                .entryDate(LocalDateTime.now()).parking(parking).build());
     }
 
     @Override
-    public void updateCarro(CarRequest carRequest, String placa) {
-        carRequest.setPlaca(placa);
-        carroRepositorio.save(Car.builder().placa(carRequest.getPlaca()).modelo(carRequest.getModelo()).marca(carRequest.getMarca())
-                .fechaDeEntrada(LocalDateTime.now()).build());
+    public void updateCarro(CarRequest carRequest, String id) {
+        carRequest.setId(id);
+        carroRepositorio.save(Car.builder().id(carRequest.getId()).model(carRequest.getModel()).brand(carRequest.getBrand())
+                .entryDate(LocalDateTime.now()).build());
     }
 
     @Override
     public void deleteCarro(String placa) {
-
+        carroRepositorio.deleteById(placa);
     }
 
     @Override
     public CarResponse getCarById(String placa) {
         Car car = carroRepositorio.findById(placa)
                 .orElseThrow(()->new CarNotFoundException("Carro no encontrado"));
-        return CarResponse.builder().placa(car.getPlaca()).marca(car.getMarca()).modelo(car.getModelo())
-                .fechaDeEntrada(car.getFechaDeEntrada()).fechaDeSalida(car.getFechaDeSalida())
-                .horas(car.getHoras()).parqueadero(car.getParqueadero().getId())
+        return CarResponse.builder().id(car.getId()).brand(car.getBrand()).model(car.getModel())
+                .entryDate(car.getEntryDate()).departureDate(car.getDepartureDate())
+                .hours(car.getHours()).parking(car.getParking().getId())
                 .build();
     }
 
@@ -58,9 +59,9 @@ public class CarCrudServiceImpl implements CarCrudService {
         List<CarResponse> list = carroRepositorio.findAll().stream()
                 .map(carro ->
                         CarResponse.builder()
-                                .placa(carro.getPlaca()).marca(carro.getMarca()).modelo(carro.getModelo())
-                                .fechaDeEntrada(carro.getFechaDeEntrada()).fechaDeSalida(carro.getFechaDeSalida())
-                                .horas(carro.getHoras()).parqueadero(carro.getParqueadero().getId())
+                                .id(carro.getId()).brand(carro.getBrand()).model(carro.getModel())
+                                .entryDate(carro.getEntryDate()).departureDate(carro.getDepartureDate())
+                                .hours(carro.getHours()).parking(carro.getParking().getId())
                                 .build()).toList();
         return list;
     }

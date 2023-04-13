@@ -38,17 +38,17 @@ public class ParkingServiceImpl implements ParkingService{
         parking.setEstado(true);
         parkingRepositorio.save(parking);
 
-        car.setFechaDeSalida(LocalDateTime.now());
-        Duration duration = Duration.between(car.getFechaDeEntrada(), car.getFechaDeSalida());
+        car.setDepartureDate(LocalDateTime.now());
+        Duration duration = Duration.between(car.getEntryDate(), car.getDepartureDate());
 
-        car.setHoras((int) Math.ceil(duration
+        car.setHours((int) Math.ceil(duration
                 .toHours())+1);
 
-        if(car.getHoras()>=24){
-            car.setHorasAPagar(PrecioPorDia
+        if(car.getHours()>=24){
+            car.setHoursForPay(PrecioPorDia
                     .obtenerPrecioPorDia(car));
         }else{
-            car.setHorasAPagar(PrecioPorHora
+            car.setHoursForPay(PrecioPorHora
                     .obtenerPrecioPorHora(car));
         }
         carroRepositorio.save(car);

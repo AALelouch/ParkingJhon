@@ -1,10 +1,12 @@
 package com.example.parqueaderoApi.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CarRequest {
-    private String placa;
-    private String modelo;
-    private String marca;
+    private String id;
+    private String model;
+    private String brand;
 }

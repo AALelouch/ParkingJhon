@@ -6,12 +6,12 @@ public class PrecioPorHora {
     public static int obtenerPrecioPorHora(Car car){
         int precioPorHora = 2000;
         int pago;
-        if(car.getHoras()<=2){
+        if(car.getHours()<=2){
             pago = precioPorHora* car
-                    .getHoras();
+                    .getHours();
         }else{
             pago = precioPorHora*(car
-                    .getHoras()-2
+                    .getHours()-2
             );
         }
         return pago;
