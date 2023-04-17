@@ -15,12 +15,10 @@ import java.util.List;
 @SecurityRequirement(name ="bearerAuth")
 public class CarController implements CarControllerInterface{
     private final CarCrudServiceImpl carroCrudService;
-    private final CarroRepositorio carroRepositorio;
 
 
-    public CarController(CarCrudServiceImpl carroCrudService, CarroRepositorio carroRepositorio) {
+    public CarController(CarCrudServiceImpl carroCrudService) {
         this.carroCrudService = carroCrudService;
-        this.carroRepositorio = carroRepositorio;
     }
 
     @GetMapping
