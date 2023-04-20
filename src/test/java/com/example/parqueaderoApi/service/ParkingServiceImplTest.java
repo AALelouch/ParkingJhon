@@ -40,7 +40,7 @@ class ParkingServiceImplTest {
     @Test
     void givenParkingWhenCreateParkingIsCalledThenParkingCreated() {
         //Arrange
-        ParkingRequest parkingRequest = new ParkingRequest(true);
+        ParkingRequest parkingRequest = new ParkingRequest(1L,true);
 
         //Act
         parkingService.createParking(parkingRequest);

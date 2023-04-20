@@ -16,11 +16,9 @@ import java.util.List;
 @SecurityRequirement(name ="bearerAuth")
 public class UserController {
     private UserRegisterService userRegisterService;
-    private final UserRepository userRepository;
 
-    public UserController(UserRegisterService userRegisterService, UserRepository userRepository) {
+    public UserController(UserRegisterService userRegisterService) {
         this.userRegisterService = userRegisterService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/getUser")

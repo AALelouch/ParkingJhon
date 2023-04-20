@@ -64,7 +64,7 @@ class ParkingControllerTest {
     @Test
     void saveParking() throws Exception{
         //Arrange
-        ParkingRequest parkingRequest = new ParkingRequest(true);
+        ParkingRequest parkingRequest = new ParkingRequest(1L, true);
 
         //Act
         mockMvc.perform(post("/parking")
@@ -78,7 +78,6 @@ class ParkingControllerTest {
     @Test
     void exitCarro() throws Exception{
         //Act
-        mockMvc.perform(post("/exit"))
-                .andExpect(status().isCreated());
+        mockMvc.perform(post("/parking/exit").with(jwt().authorities(new SimpleGrantedAuthority("test"))));
     }
 }

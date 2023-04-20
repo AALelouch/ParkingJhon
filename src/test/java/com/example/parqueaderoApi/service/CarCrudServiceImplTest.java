@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -90,11 +91,11 @@ class CarCrudServiceImplTest {
         //Arrange
         Parking parkingToReturnOfRepository = new Parking(1L, true);
         Mockito.when(parkingRepositorio.getFirstParkingAvailable()).thenReturn(Optional.of(parkingToReturnOfRepository));
-        Car car = new Car("ADR-85G", "2023", "Yamaha", LocalDateTime.now(), LocalDateTime.now(), 6, 10, parkingToReturnOfRepository);
+        Car car = new Car("ZGZ-03F", "2010", "Honda",  LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0), 2, 2, parkingToReturnOfRepository);
         String id = "ADR-85G";
         Mockito.when(carroRepositorio.findById(id)).thenReturn(Optional.of(car));
 
-        CarResponse carResponseExpect = new CarResponse("ZGZ-03F", "2010", "Honda", LocalDateTime.now(), LocalDateTime.now(),2, 2, 1L);
+        CarResponse carResponseExpect = new CarResponse("ZGZ-03F", "2010", "Honda", LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0),2, 2, 1L);
 
         //Act
         CarResponse carResponseResult = carCrudService.getCarById(id);
