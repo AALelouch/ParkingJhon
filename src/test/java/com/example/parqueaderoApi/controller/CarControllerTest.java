@@ -105,7 +105,7 @@ class CarControllerTest {
         CarRequest carRequest = new CarRequest("ADR-85G", "2023", "Victory");
 
         //Act
-        mockMvc.perform(put("car/update/ADR-85G")
+        mockMvc.perform(patch("/car/update/ADR-85G")
                         .with(jwt().authorities(new SimpleGrantedAuthority("test")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -120,11 +120,12 @@ class CarControllerTest {
         CarRequest carRequest = new CarRequest("ADR-85G", "2023", "Victory");
 
         //Act
-        mockMvc.perform(delete("/delete/ADR-85G")
+        mockMvc.perform(delete("/car/delete/ADR-85G")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("test")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(carRequest)))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
     }
 }

@@ -15,11 +15,9 @@ import java.util.List;
 @RequestMapping("/parking")
 @SecurityRequirement(name ="bearerAuth")
 public class ParkingController {
-    private final ParkingRepositorio parkingRepositorio;
     private final ParkingServiceImpl parkingService;
 
-    public ParkingController(ParkingRepositorio parkingRepositorio, ParkingServiceImpl parkingService) {
-        this.parkingRepositorio = parkingRepositorio;
+    public ParkingController(ParkingServiceImpl parkingService) {
         this.parkingService = parkingService;
     }
     @GetMapping("/getParking")
@@ -27,7 +25,7 @@ public class ParkingController {
         return parkingService.getAllParkingAvailable();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void saveParking(@RequestBody ParkingRequest parking){
         parkingService.createParking(parking);
