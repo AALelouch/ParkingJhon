@@ -50,7 +50,7 @@ public class CarCrudServiceImpl implements CarCrudService {
                 .orElseThrow(()->new CarNotFoundException("Carro no encontrado"));
         return CarResponse.builder().id(car.getId()).brand(car.getBrand()).model(car.getModel())
                 .entryDate(car.getEntryDate()).departureDate(car.getDepartureDate())
-                .hours(car.getHours()).parking(car.getParking().getId())
+                .hours(car.getHours()).hoursForPay(car.getHoursForPay()).parking(car.getParking().getId())
                 .build();
     }
 
@@ -61,7 +61,7 @@ public class CarCrudServiceImpl implements CarCrudService {
                         CarResponse.builder()
                                 .id(carro.getId()).brand(carro.getBrand()).model(carro.getModel())
                                 .entryDate(carro.getEntryDate()).departureDate(carro.getDepartureDate())
-                                .hours(carro.getHours()).parking(carro.getParking().getId())
+                                .hours(carro.getHours()).hoursForPay(carro.getHoursForPay()).parking(carro.getParking().getId())
                                 .build()).toList();
         return list;
     }

@@ -113,9 +113,9 @@ class CarCrudServiceImplTest {
         Parking parkingToReturnOfRepository = new Parking(1L, true);
         Mockito.when(parkingRepositorio.getFirstParkingAvailable()).thenReturn(Optional.of(parkingToReturnOfRepository));
 
-        Car car = new Car("ADR-85G", "2023", "Yamaha", LocalDateTime.now(), LocalDateTime.now(), 6, 10, parkingToReturnOfRepository);
-        Car carTwo = new Car("FGA-99G", "2023", "Honda", LocalDateTime.now(), LocalDateTime.now(), 6, 10, parkingToReturnOfRepository);
-        Car carThree = new Car("PLA-55G", "2023", "Auteco", LocalDateTime.now(), LocalDateTime.now(), 6, 10, parkingToReturnOfRepository);
+        Car car = new Car("ZGZ-03F", "2010", "Honda",LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0), 6, 10, parkingToReturnOfRepository);
+        Car carTwo = new Car("ZHG-08P", "2014", "Honda", LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0), 6, 10, parkingToReturnOfRepository);
+        Car carThree = new Car("ZGZ-20F", "2012", "Honda",LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0), 6, 10, parkingToReturnOfRepository);
 
         List<Car> list = new ArrayList<>();
         list.add(car);
@@ -124,9 +124,9 @@ class CarCrudServiceImplTest {
 
         Mockito.when(carroRepositorio.findAll()).thenReturn(list);
 
-        CarResponse carResponseExpect = new CarResponse("ZGZ-03F", "2010", "Honda", LocalDateTime.now(), LocalDateTime.now(),2, 2, 1L);
-        CarResponse carResponseExpectTwo = new CarResponse("ZHG-08P", "2014", "Honda", LocalDateTime.now(), LocalDateTime.now(),2, 2, 1L);
-        CarResponse carResponseExpectThree = new CarResponse("ZGZ-20F", "2012", "Honda", LocalDateTime.now(), LocalDateTime.now(),2, 2, 1L);
+        CarResponse carResponseExpect = new CarResponse("ZGZ-03F", "2010", "Honda", LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0),6, 10, 1L);
+        CarResponse carResponseExpectTwo = new CarResponse("ZHG-08P", "2014", "Honda", LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0),6, 10, 1L);
+        CarResponse carResponseExpectThree = new CarResponse("ZGZ-20F", "2012", "Honda", LocalDateTime.of(2023, Month.JANUARY, 3,13,0), LocalDateTime.of(2023, Month.APRIL, 3,13,0),6, 10, 1L);
 
         List<CarResponse> listExpect = new ArrayList<>();
         listExpect.add(carResponseExpect);
