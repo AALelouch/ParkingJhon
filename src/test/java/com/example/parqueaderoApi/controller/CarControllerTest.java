@@ -74,7 +74,8 @@ class CarControllerTest {
         when(carCrudService.getCarById(any(String.class))).thenReturn(carResponseExpect);
 
         //Assert
-        mockMvc.perform(get("/car/ZGZ-03F")
+        mockMvc.perform(get("/car/carro/ZGZ-03F")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("test")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -85,17 +86,16 @@ class CarControllerTest {
 
     @Test
     void saveCarro() throws Exception{
-        this.mockMvc
-                .perform(post("/car")
-                        .contentType(APPLICATION_JSON)
-                        .content("""
-                                {
-                                "id":1L,
-                                "model" : "2022",
-                                "brand" : "honda"
-                                  }
-                                """)
-                ).andExpect(status().isCreated());
+        //Arrange
+        CarRequest carRequest = new CarRequest("ZGZ-09C", "2023", "Honda");
+
+        //Act
+        mockMvc.perform(post("/car")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("test")))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(carRequest)))
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -105,11 +105,12 @@ class CarControllerTest {
         CarRequest carRequest = new CarRequest("ADR-85G", "2023", "Victory");
 
         //Act
-        mockMvc.perform(patch("/update/ADR-85G")
+        mockMvc.perform(put("car/update/ADR-85G")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("test")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(carRequest)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isNoContent());
     }
 
     @Test
