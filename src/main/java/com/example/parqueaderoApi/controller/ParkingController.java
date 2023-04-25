@@ -3,7 +3,6 @@ package com.example.parqueaderoApi.controller;
 
 import com.example.parqueaderoApi.model.ParkingRequest;
 import com.example.parqueaderoApi.model.ParkingResponse;
-import com.example.parqueaderoApi.repository.ParkingRepositorio;
 import com.example.parqueaderoApi.service.ParkingServiceImpl;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;

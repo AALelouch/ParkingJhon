@@ -3,7 +3,6 @@ package com.example.parqueaderoApi.controller;
 
 import com.example.parqueaderoApi.model.UserRequest;
 import com.example.parqueaderoApi.model.UserResponse;
-import com.example.parqueaderoApi.repository.UserRepository;
 import com.example.parqueaderoApi.service.UserRegisterService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;

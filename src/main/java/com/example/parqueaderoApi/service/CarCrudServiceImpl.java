@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 @Service
 public class CarCrudServiceImpl implements CarCrudService {
-
     private final CarroRepositorio carroRepositorio;
     private final ParkingRepositorio parkingRepositorio;
     public CarCrudServiceImpl(CarroRepositorio carroRepositorio, ParkingRepositorio parkingRepositorio) {
