@@ -1,13 +1,17 @@
 package com.example.parqueaderoApi.service.util;
 
-import com.example.parqueaderoApi.config.ExcludeJaCoCo;
+import com.example.parqueaderoApi.config.Generated;
 import com.example.parqueaderoApi.entity.Car;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-@ExcludeJaCoCo
 public class PrecioPorDia {
+
+    @Generated
+    public PrecioPorDia() {
+    }
+
     public static int obtenerPrecioPorDia(Car car){
 
         int valorDia = 44000;
