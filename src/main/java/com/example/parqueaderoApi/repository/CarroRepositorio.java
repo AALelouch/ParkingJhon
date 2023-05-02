@@ -8,6 +8,5 @@ import java.util.Optional;
 
 
 public interface CarroRepositorio extends JpaRepository<Car, String> {
-    @Query ("Select carro from Carro carro where carro.fechaDeSalida = null order by carro.placa limit 1")
-    Optional<Car> exitCarro();
+    Optional<Car> exitCarro(String id);
 }

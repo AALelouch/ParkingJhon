@@ -2,6 +2,8 @@ package com.example.parqueaderoApi.service;
 
 import com.example.parqueaderoApi.entity.Car;
 import com.example.parqueaderoApi.entity.Parking;
+import com.example.parqueaderoApi.exception.CarNotFoundException;
+import com.example.parqueaderoApi.model.CarResponse;
 import com.example.parqueaderoApi.model.ParkingRequest;
 import com.example.parqueaderoApi.model.ParkingResponse;
 import com.example.parqueaderoApi.repository.CarroRepositorio;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 @Service
 public class ParkingServiceImpl implements ParkingService{
     private final ParkingRepositorio parkingRepositorio;
@@ -30,9 +35,10 @@ public class ParkingServiceImpl implements ParkingService{
     }
 
     @Override
-    public void exitParking() {
+    public void exitParking(String placa) {
         Parking parking = parkingRepositorio.exitParking().orElseThrow(()->new IllegalArgumentException("No hay ningun parking ocupado"));
-        Car car = carroRepositorio.exitCarro().orElseThrow(()->new IllegalArgumentException("No hay ningun carro en el parqueadero"));
+        Car car = carroRepositorio.findById(placa).orElseThrow(()->new CarNotFoundException("No existe el carro en el parqueadero"));
+        carroRepositorio.exitCarro(placa);
 
         parking.setEstado(true);
         parkingRepositorio.save(parking);
@@ -43,9 +49,12 @@ public class ParkingServiceImpl implements ParkingService{
         car.setHours((int) Math.ceil(duration
                 .toHours())+1);
 
+        Double durationDays = Math.ceil(duration
+                .toDays());
+
+
         if(car.getHours()>=24){
-            car.setHoursForPay(PrecioPorDia
-                    .obtenerPrecioPorDia(car));
+            System.out.println(durationDays);
         }else{
             car.setHoursForPay(PrecioPorHora
                     .obtenerPrecioPorHora(car));

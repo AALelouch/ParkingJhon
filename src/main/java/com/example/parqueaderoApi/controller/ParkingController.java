@@ -30,8 +30,8 @@ public class ParkingController {
         parkingService.createParking(parking);
     }
 
-    @GetMapping("/exit")
-    public void exitCarro(){
-        parkingService.exitParking();
+    @GetMapping("/exit/{placa}")
+    public void exitCarro(@PathVariable String placa){
+        parkingService.exitParking(placa);
     }
 }

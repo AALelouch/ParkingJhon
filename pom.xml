@@ -152,7 +152,23 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.7.201606060606</version>
+				<version>0.8.10</version>
+				<configuration>
+					<excludes>
+						<exclude>com/example/parqueaderoApi/model/**</exclude>
+						<exclude>com/example/parqueaderoApi/entity/**</exclude>
+						<exclude>com/example/parqueaderoApi/exception/**</exclude>
+						<exclude>com/example/parqueaderoApi/security/config/AuthCredentials.class</exclude>
+						<exclude>com/example/parqueaderoApi/security/config/AuthProvider.class</exclude>
+						<exclude>com/example/parqueaderoApi/security/config/JWTAuthenticationFilter.class</exclude>
+						<exclude>com/example/parqueaderoApi/security/config/JWTAuthorizationFilter.class</exclude>
+						<exclude>com/example/parqueaderoApi/security/config/SecurityConfig.class</exclude>
+						<exclude>com/example/parqueaderoApi/security/config/TokenUtils.class</exclude>
+						<exclude>com/example/parqueaderoApi/security/config/UserDetailsImpl.class</exclude>
+						<exclude>com/example/parqueaderoApi/ParkingApiApplication.class</exclude>
+						<exclude>com/example/parqueaderoApi/service/UserRegister.class</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>

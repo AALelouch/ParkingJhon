@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,14 +58,22 @@ class ParkingServiceImplTest {
         Mockito.when(parkingRepositorio.exitParking()).thenReturn(Optional.of(parking));
 
         Car car = new Car("ADR-85G", "2023", "Yamaha", LocalDateTime.now(), LocalDateTime.now(), 6, 10, parking);
-        Mockito.when(carroRepositorio.exitCarro()).thenReturn(Optional.of(car));
+        Car carTwo = new Car("ZGZ-09C", "2023", "Yamaha", LocalDateTime.of(2023, Month.APRIL, 20,13,0), LocalDateTime.now(), 32, 32, parking);
+        Car carThree = new Car("FRT-07P", "2023", "Yamaha", LocalDateTime.of(2023, Month.APRIL, 20,13,0), LocalDateTime.of(2023, Month.APRIL, 20,13,0), 25, 25, parking);
+
+        Mockito.when(carroRepositorio.exitCarro("ADR-85G")).thenReturn(Optional.of(car));
+        Mockito.when(carroRepositorio.findById("ADR-85G")).thenReturn(Optional.of(car));
+        Mockito.when(carroRepositorio.findById("ZGZ-09C")).thenReturn(Optional.of(carTwo));
+        Mockito.when(carroRepositorio.findById("FRT-07P")).thenReturn(Optional.of(carThree));
 
         //Act
-        parkingService.exitParking();
+        parkingService.exitParking("ADR-85G");
+        parkingService.exitParking("ZGZ-09C");
+        parkingService.exitParking("FRT-07P");
 
         //Assert
-        Mockito.verify(parkingRepositorio, Mockito.times(1)).save(any(Parking.class));
-        Mockito.verify(carroRepositorio, Mockito.times(1)).save(any(Car.class));
+        Mockito.verify(parkingRepositorio, Mockito.times(3)).save(any(Parking.class));
+        Mockito.verify(carroRepositorio, Mockito.times(3)).save(any(Car.class));
 
 
     }

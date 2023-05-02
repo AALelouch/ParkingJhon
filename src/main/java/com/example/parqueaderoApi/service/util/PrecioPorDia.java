@@ -1,10 +1,12 @@
 package com.example.parqueaderoApi.service.util;
 
+import com.example.parqueaderoApi.config.ExcludeJaCoCo;
 import com.example.parqueaderoApi.entity.Car;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+@ExcludeJaCoCo
 public class PrecioPorDia {
     public static int obtenerPrecioPorDia(Car car){
 

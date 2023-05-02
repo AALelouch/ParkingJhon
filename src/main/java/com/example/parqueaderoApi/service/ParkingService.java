@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ParkingService {
     void createParking(ParkingRequest parking);
-    void exitParking();
+    void exitParking(String placa);
     List<ParkingResponse> getAllParkingAvailable();
 
 }
